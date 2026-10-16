@@ -1,0 +1,22 @@
+name: CI/CD
+
+on: 
+  push:
+    branches: [develop, main]
+  pull_request:
+    branches: [develop, main]
+  workflow_dispatch:
+
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: action/checkout@v7
+      - uses: action/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+      - name: Build e test
+        run: ./mvnw -B verify
