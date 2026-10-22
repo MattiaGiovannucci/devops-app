@@ -1,7 +1,5 @@
 package it.softwareindustriale.devopsapp;
 
-import java.beans.Transient;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -12,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmcv.test.autoconfigure.AutoconfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
 
+@AutoConfigureMockMvc
 @SpringBootTest
 class DevopsAppApplicationTests {
 
@@ -24,9 +23,9 @@ class DevopsAppApplicationTests {
 
 	@Test
 	void infoMostraIlNomeDellApp() throws Exception{
-		mvc.perform(get( uriTemplate-> "/info"))
+		mvc.perform(get("/info"))
 		.andExpect(status().isOk())
-		.andExpect(jsonPath( expression-> "$.app.name").value( expectedValue-> "devops-app"));
+		.andExpect(jsonPath("$.app.name").value("devops-app"));
 	}
 
 }
